@@ -17,9 +17,7 @@
 
 % This block of comment is to 1) Thank folks on Twitter for giving me something better to do on a couple of evenings than work on a dissertation 2) apologize to those who have seen this slide format before at a conference - I only have one style 3) apologize for my crummy code and lame jokes, and 4) disclaim all responsibility for all of that stuff that lawyers talk about at the end of pharmaceutical commercials.
 
-% PS: I release all ownership of this LaTeX code. Use, splice, edit, distribute as you will.
-
-
+% PS: I release all ownership of this LaTeX code. Use, splice, edit, distribute as you will. Credit would be nice, but ¯\_(ツ)_/¯.
 
 \begin{document}
 \beamertemplateshadingbackground{blue!10}{gray!30}
@@ -41,7 +39,7 @@
 
 \begin{frame}
 	\begin{center}
-	\animategraphics[width=.75\linewidth]{25}{jack/jack-}{0}{82} %this command is: \animategraphics[options]{frames per second}{root of filename}{first frame number}{last frame number} - I knew to use 33.33 fps because I cheated and looked at the GIF properties (30ms per frame) in GIMP. You may choose to eyeball this. This all comes up again in the slides later on down there...
+	\animategraphics[width=.75\linewidth]{25}{jack/jack-}{0}{82} %this command is: \animategraphics[options]{frames per second}{root of filename}{first frame number}{last frame number} - I knew to use 33.33 fps because I cheated and looked at the GIF properties (30ms per frame) in GIMP. You may choose to eyeball this. This all comes up again in the slides later on down there. Also, I stuck my gif frames in folders for safekeeping, hence the filename structure. The file name was "jack-0.png", for instance.
 	\end{center}
 \end{frame}
 
@@ -116,7 +114,7 @@
 			\item GIMP or other image editing software
 			\item or, my recommendation: \href{https://www.imagemagick.org/script/binary-releases.php}{ImageMagick}
 		\end{itemize}
-	ImageMagick has a bit of a learning curve, but let's face it: You're using \LaTeX. You've got this. \href{}{If you want to use some other sort of program to create your image stack, click here and you'll rejoin us after the ImageMagick bits.}
+	ImageMagick has a bit of a learning curve, but let's face it: You're using \LaTeX. You've got this. \hyperlink{STEP3a}{If you want to use some other sort of program to create your image stack, click here and you'll rejoin us after the ImageMagick bits.}
 \end{frame}
 
 \begin{frame}
@@ -128,22 +126,109 @@
 			\item In OSX, go to Applications $\rightarrow$ Utilities (or Spotlight) and launch terminal.
 			\item If you are using any Linux/Unix, I trust you know what to do.
 		\end{itemize}
-	The next step is the only bit of command line messiness you need to deal with. Sorry. It's worth it, I promise.
+	The next step is the only bit of command line messiness you need to deal with. Sorry. It's worth it, I promise. But first, an ``out''.
 \end{frame}
 
 \begin{frame}
 	\frametitle{Step 2c: From GIF to PNG}
-	
-	
+	If you want to do this the easiest way, I've put scripts on GitHub for your use. The Windows executable batch file is here: \href{https://raw.githubusercontent.com/abhworthington/gifsinbeamer/master/ImageMagickscripts/giftopng.bat}{Right-click and save as a .bat file.} (This may require deleting a suffix.) If you use OSX, \href{}{that script is here.}
+	These should be placed in the same folder as \emph{one GIF only}. This is important. The script creates an output folder and drops the frames inside. Then you can just take them away to where you need them. \hyperlink{STEP3a}{If you use the scripts, you can click here.}
 \end{frame}
 
+\begin{frame}[fragile]
+	\frametitle{Step 2d: Command Line Work}
+	If you want to run the command yourself:
+		\begin{block}{For Windows 7/8/10}
+		\begin{verbatim}
+		magick "*.gif" -coalesce "gifoutput\gifoutput.png"
+		\end{verbatim}
+		Here, ``*.gif'' is the input file and ``gifoutput.png'' is the root of the output filenames. I created a folder to hold them in the batch script called ``gifoutput''. The ``-coalesce'' option before the output ensures full frames, not partial ones of different size, are created.
+		\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 2d: Command Line Work}
+	If you want to run the command yourself:
+		\begin{block}{For OSX}
+		\begin{verbatim}
+		convert *.gif -coalesce gifoutput.png
+		\end{verbatim}
+		Here, *.gif is the input file and gifoutput.png is the root of the output filenames. You can append paths as needed. The ``-coalesce'' option before the output ensures full frames, not partial ones of different size, are created.
+		\end{block}
+	There's a lot more you can do, but I leave the ImageMagick documentation to the reader.
+\end{frame}
+
+\begin{frame}\hypertarget{STEP3a}{}
+	\frametitle{Step 3a: Animating in Beamer}
+	Now that you have a stack of images (I like PNG for this), you are almost ready to go. But first:
+	\begin{block}{ONE IMPORTANT NOTICE!!!}
+		Your images have to have a consistent naming scheme, with numbers at the end. This means something like ``jack-0.png'', then ``jack-1.png'', etc. on until the last frame. For the nodding Jack Nicholson above, it was ``jack-0.png'' up to ``jack-82.png''. If your frames are not numbered, you are gonna have a bad time. You have to put them somewhere your \TeX editor can find them.
+	\end{block}
+	Now I'll introduce you to the reason for this whole endeavor - the ``animate'' package. (It's great, and has value well beyond the simple meme.)
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 3b: Using \emph{animate} to... animate.}
+	Putting animations in your presentation (or document, if so inclined) is really complicated. (\textbackslash s)
+		\begin{itemize}
+			\item Use \verb+\usepackage{animate}+ in the preamble
+			\item Use \verb+\animategraphics+ in your frames/text
+		\end{itemize}
+	Each of these requires a quick primer, but once you do it once, it becomes trivial to do.
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 3c: The animate Preamble}
+	You can call the ``animate'' package as it is, but if you intend to put several animations in your slide deck, you can save yourself time and energy by putting some commands in the preamble call. The full call is: \verb+\usepackage[options]{animate}+. Some useful options are:
+		\begin{itemize}
+			\item autoplay - when the page is up, the animation starts
+			\item loop - the animation goes from first frame to last, then repeats
+			\item controls - puts basic controls on the image stack
+			\item autopause - pauses, rather than resets, when you leave the page
+			\item palindrome - first to last to first play
+			\item step - one click per frame (this will make sense in a second)
+		\end{itemize}
+	I tend to drop \verb+[autoplay, loop]+ in my options every time, including here. Comma separate!
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Step 3d: The `animategraphics' command}
+	The last step is actually including the image. As long as you did your prep work right, this is easy. The full command is:
+		\begin{block}{The Magic Command}
+			\begin{verbatim}
+			\animategraphics[options]{frames per second}
+			{filename w/o number or suffix}{start #}{end #}
+			\end{verbatim}
+		\end{block}
+		\begin{block}{An example}
+			\begin{verbatim}
+			\animategraphics[width=\linewidth]{25}{jack-}{0}{82}
+			\end{verbatim}
+			The filenames were ``jack-0.png'' to ``jack-82.png''. I set width to the textbox width and ran the animation at 25 fps.
+		\end{block}
+\end{frame}
 
 \begin{frame}
-	\frametitle{Step 3a: Animating in Beamer - Roll-your-own GIFs}
-	
+	\frametitle{Step 3e: Framerate and Size}
+	Sizing works the same as the ``graphics'' commands, but framerate may be new to you. Here's a gif at ``proper'' speed - 10 fps.
+		\begin{center}
+		\animategraphics[width=\linewidth]{10}{steve/steve-}{0}{26}
+		\end{center}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Step 3e: Framerate and Size}
+	Here's the same gif at double speed - 20 fps.
+		\begin{center}
+		\animategraphics[width=\linewidth]{20}{steve/steve-}{0}{26}
+		\end{center}
+	Have fun with this.
+\end{frame}
 
+\begin{frame}
+	\frametitle{Step 4: There is no ``Step 4''}
+	You're done. Bask in the glow of a job well done. Enjoy the applause at your next presentation. Please use in moderation. You can also use this to great effect with other graphics, like plots where time (or another dimension) is relevant. Try it! If you want to see a couple more tricks and references, continue.
+\end{frame}
 
 \begin{frame}
 	\frametitle{If all has gone well, you'll look at your presentations like:}
@@ -165,7 +250,7 @@
 	\animategraphics[width=\linewidth]{12.5}{lakerbros/lakerbros-}{42}{0}
 	\end{center}
 	\pause
-(Those are the same files, btw. Just reversed the frame order. It's fun.)
+(Those are the same files, btw. Just reversed the frame order. \{0\}\{42\} becomes \{42\}\{0\} It's fun.)
 \end{frame}
 
 \begin{frame}
