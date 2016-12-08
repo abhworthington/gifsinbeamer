@@ -1,0 +1,28 @@
+To get set up for OSX use, you have to install the software and tell OSX you have permission to execute the command script "giftopng.command". Here's how to do that.
+
+If you are using OSX and you don't have ImageMagick installed, here's a relatively-simple way to do it. The first set of steps are if you have neither Homebrew nor ImageMagick. If you have either (or both), scroll down a bit.
+
+First, open Terminal.
+Then, copy/paste and execute the following:
+
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+This will install "Homebrew" - a program which simplifies installation and management of homebrew/commandline/unix packages in OSX.
+
+Second, with Homebrew installed and the Terminal still open, copy/paste and execute:
+
+brew install imagemagick
+
+(Now, scroll to the bottom)
+_________________________________________________________________________________________________________________________
+
+If you already have Homebrew but not Imagemagick, I recommend making sure you're up to date by running the following in Terminal
+
+brew update && brew upgrade
+
+(Only if you've already got Homebrew!)
+
+Now, just run the following in Terminal:
+
+
+_________________________________________________________________________________________________________________________
