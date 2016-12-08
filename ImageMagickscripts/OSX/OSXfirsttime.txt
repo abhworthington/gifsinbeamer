@@ -24,5 +24,19 @@ brew update && brew upgrade
 
 Now, just run the following in Terminal:
 
-
+brew install imagemagick
 _________________________________________________________________________________________________________________________
+
+If you have Imagemagick and Homebrew, just update 
+
+brew reinstall imagemagick
+
+(It may give you some lip, just copy and execute whatever it asks you to.)
+
+__________________________________________________________________________________________________________________________
+
+Once you have Imagemagick installed, you just need to run this command to set permissions:
+
+chmod u+x giftopng.command
+
+You're ready to to! Copy the file from the repo to whatever folder holds your gif.
