@@ -1,28 +1,28 @@
-To get set up for OSX use, you have to install the software and tell OSX you have permission to execute the command script "giftopng.command". Here's how to do that.
+To get set up for OSX use, you have to install the ImageMagick package. Here's how to do that. Line breaks matter here, but it seemed the easiest way to convey all of this.
 
 If you are using OSX and you don't have ImageMagick installed, here's a relatively-simple way to do it. The first set of steps are if you have neither Homebrew nor ImageMagick. If you have either (or both), scroll down a bit.
 
 First, open Terminal.
-Then, copy/paste and execute the following:
+Then, copy/paste and execute the following line of code:
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 This will install "Homebrew" - a program which simplifies installation and management of homebrew/commandline/unix packages in OSX.
 
-Second, with Homebrew installed and the Terminal still open, copy/paste and execute:
+Second, with Homebrew installed and the Terminal still open, copy/paste and execute this line of code:
 
 brew install imagemagick
 
 (Now, scroll to the bottom)
 _________________________________________________________________________________________________________________________
 
-If you already have Homebrew but not Imagemagick, I recommend making sure you're up to date by running the following in Terminal
+If you already have Homebrew but not Imagemagick, I recommend making sure you're up to date by running the following line of code in Terminal:
 
 brew update && brew upgrade
 
 (Only if you've already got Homebrew!)
 
-Now, just run the following in Terminal:
+Now, just run the following line of code in Terminal:
 
 brew install imagemagick
 _________________________________________________________________________________________________________________________
@@ -32,11 +32,3 @@ If you have Imagemagick and Homebrew, just update
 brew reinstall imagemagick
 
 (It may give you some lip, just copy and execute whatever it asks you to.)
-
-__________________________________________________________________________________________________________________________
-
-Once you have Imagemagick installed, you just need to run this command to set permissions:
-
-chmod u+x giftopng.command
-
-You're ready to to! Copy the file from the repo to whatever folder holds your gif.
