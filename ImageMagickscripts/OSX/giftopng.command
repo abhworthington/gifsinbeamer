@@ -1,3 +1,3 @@
 cd `dirname $0`
-mkdir output
+mkdir gifoutput
 convert *.gif -coalesce ./gifoutput/gifoutput.png
