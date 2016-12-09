@@ -32,3 +32,14 @@ If you have Imagemagick and Homebrew, just update
 brew reinstall imagemagick
 
 (It may give you some lip, just copy and execute whatever it asks you to.)
+__________________________________________________________________________________________________________________________
+
+Once you've installed ImageMagick:
+1) Save the giftopng.command file to the Desktop. (This is just for the first step. You can relocate it anywhere after this.)
+2) Open a Terminal (if not already open).
+3) Execute the following command:
+
+chmod +x ~/Desktop/giftopng.command
+
+4) Once you have executed the code above, you can move the command file wherever you like, including into a special folder for processing GIFs.
+5) Clicking on the giftopng.command file will open a Terminal, create a subfolder, and convert any GIF in that folder to PNGs which are placed in the subfolder.
