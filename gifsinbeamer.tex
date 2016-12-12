@@ -12,7 +12,7 @@
 
 \title{Embedding ``GIFs'' in Beamer Slides \\ Memes for Fun, Profit, and Embarrassing Your Colleagues}
 \author{Alton B.H. Worthington}
-\institute{University of Michigan}
+\institute{abhworthington.com}
 \date{December 2016}
 
 % This block of comment is to 1) Thank folks on Twitter for giving me something better to do on a couple of evenings than work on a dissertation 2) apologize to those who have seen this slide format before at a conference - I only have one style 3) apologize for my crummy code and lame jokes, and 4) disclaim all responsibility for all of that stuff that lawyers talk about at the end of pharmaceutical commercials.
@@ -23,6 +23,17 @@
 \beamertemplateshadingbackground{blue!10}{gray!30}
 \usenavigationsymbolstemplate{}
 \frame{\titlepage}
+
+\begin{frame}
+	\frametitle{A few quick notes}
+	\begin{itemize}
+		\item If you are viewing this on GitHub directly, please download it! (The images will not render/play properly in the GH viewer.)
+	
+		\item All of the animation fun to come does not work in some PDF viewers (OSX Preview and Foxit Reader are known-bad readers), but works well in the original Acrobat Reader and other readers which support Rich Media PDFs.
+	
+		\item If you're willing to try to put GIFs into a beamer presentation, this hiccup is likely minor.
+	\end{itemize}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Motivation}
@@ -67,7 +78,7 @@
 	Congratulations! You've decided to make memetics a pedagogical strategy. Here's what you need:
 		\begin{itemize}
 			\item A gif. Or gifs.
-			\item \href{https://www.imagemagick.org/script/binary-releases.php}{ImageMagick} (it's available for all OSes)
+			\item \href{https://www.imagemagick.org/script/binary-releases.php}{ImageMagick} or some other image converter.
 			\item Beamer
 			\item A bit of time and a folder to hold everything - your GIF is going to become a series of frames
 			\item Optional, but recommended: \href{https://www.roosroast.com/}{coffee}
@@ -119,49 +130,51 @@
 
 \begin{frame}
 	\frametitle{Step 2b: Download and Install ImageMagick}
-	I use \href{https://www.imagemagick.org/script/binary-releases.php}{ImageMagick} to convert a GIF into individual images. It does \emph{a whole lot more}, but for today, we are just going to use it to convert the GIF into a stack of PNG images, which pdflatex finds easy to digest. First you have to download and install it! \\
-	Once you've installed it, you operate it from a command line. The instructions give you a first walkthrough, but as a reminder:
+	I use ImageMagick to convert a GIF into individual images. It does \emph{a whole lot more}, but for today, we are just going to use it to convert the GIF into a stack of PNG images, which pdflatex finds easy to digest. First you have to download and install it! \\
 		\begin{itemize}
-			\item In Windows, go to the start menu and run ``cmd.exe''
-			\item In OSX, go to Applications $\rightarrow$ Utilities (or Spotlight) and launch terminal.
-			\item If you are using any Linux/Unix, I trust you know what to do.
+			\item In Windows, \href{https://www.imagemagick.org/script/binary-releases.php\#windows}{download and execute this installer}.
+			\item If you are using any Linux/Unix, \href{https://www.imagemagick.org/script/binary-releases.php\#unix}{you can get a binary here}.
+			\item In OSX, things are a bit complicated. The easiest way is to install ImageMagick via HomeBrew. \href{https://github.com/abhworthington/gifsinbeamer/blob/master/ImageMagickscripts/OSX/OSXfirsttime.txt}{Follow the instructions (for both) I've written here}.
 		\end{itemize}
 	The next step is the only bit of command line messiness you need to deal with. Sorry. It's worth it, I promise. But first, an ``out''.
 \end{frame}
 
 \begin{frame}
 	\frametitle{Step 2c: From GIF to PNG}
-	If you want to do this the easiest way, I've put scripts on GitHub for your use. The Windows executable batch file is here: \href{https://raw.githubusercontent.com/abhworthington/gifsinbeamer/master/ImageMagickscripts/giftopng.bat}{Right-click and save as a .bat file.} (This may require deleting a suffix.) If you use OSX, that script is here. \href{https://github.com/abhworthington/gifsinbeamer/blob/master/ImageMagickscripts/giftopng.command}{Save the file as a .command file.}
+	If you want to do this the easiest way, I've put scripts on GitHub for your use.
+	\begin{itemize}
+		\item The Windows executable batch file is here: \href{https://raw.githubusercontent.com/abhworthington/gifsinbeamer/master/ImageMagickscripts/giftopng.bat}{Right-click and save as a .bat file.} (This may require deleting a suffix.)
+		\item If you use OSX, that script is here. \href{https://github.com/abhworthington/gifsinbeamer/blob/master/ImageMagickscripts/giftopng.command}{Save the file as a .command file.} You'll also need to change permissions on the script. \href{https://github.com/abhworthington/gifsinbeamer/blob/master/ImageMagickscripts/OSX/OSXfirsttime.txt}{I explain how to do that here}.
+	\end{itemize}
 	The script should be placed in the same folder as \emph{one GIF only}. This is important. The script creates an output folder and drops the frames inside. Then you can just take them away to where you need them. \hyperlink{STEP3a}{If you use the scripts, you can click here.} If you want to DIY, continue.
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Step 2d: Command Line Work}
-	If you want to run the command yourself:
+	If you want to run the command yourself, open a command window and run:
 		\begin{block}{For Windows 7/8/10}
 		\begin{verbatim}
 		magick "*.gif" -coalesce "gifoutput\gifoutput.png"
 		\end{verbatim}
-		Here, ``*.gif'' is the input file and ``gifoutput.png'' is the root of the output filenames. I created a folder to hold them in the batch script called ``gifoutput''. The ``-coalesce'' option before the output ensures full frames, not partial ones of different size, are created.
 		\end{block}
+	Here, ``*.gif'' is the input file and ``gifoutput.png'' is the root of the output filenames. I created a folder to hold them in the batch script called ``gifoutput''. The ``-coalesce'' option before the output ensures full frames, not partial ones of different size, are created. (There's a lot more you can do, but I leave the ImageMagick documentation to the reader.)
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Step 2d: Command Line Work}
-	If you want to run the command yourself:
+	If you want to run the command yourself, open a terminal and run:
 		\begin{block}{For OSX}
 		\begin{verbatim}
 		convert *.gif -coalesce gifoutput.png
 		\end{verbatim}
-		Here, *.gif is the input file and gifoutput.png is the root of the output filenames. You can append paths as needed. The ``-coalesce'' option before the output ensures full frames, not partial ones of different size, are created.
 		\end{block}
-	There's a lot more you can do, but I leave the ImageMagick documentation to the reader.
+		Here, *.gif is the input file and gifoutput.png is the root of the output filenames. You can append paths as needed. The ``-coalesce'' option before the output ensures full frames, not partial ones of different size, are created. (There's a lot more you can do, but I leave the ImageMagick documentation to the reader.)
 \end{frame}
 
 \begin{frame}\hypertarget{STEP3a}{}
 	\frametitle{Step 3a: Animating in Beamer}
 	Now that you have a stack of images (I like PNG for this), you are almost ready to go. But first:
-	\begin{block}{ONE IMPORTANT NOTICE!!!}
+	\begin{block}{One important notice!!!}
 		Your images have to have a consistent naming scheme, with numbers at the end. This means something like ``jack-0.png'', then ``jack-1.png'', etc. on until the last frame. For the nodding Jack Nicholson above, it was ``jack-0.png'' up to ``jack-82.png''. If your frames are not numbered, you are gonna have a bad time. You have to put them somewhere your \TeX editor can find them.
 	\end{block}
 	Now I'll introduce you to the reason for this whole endeavor - the ``animate'' package. (It's great, and has value well beyond the simple meme.)
@@ -250,16 +263,16 @@
 	\animategraphics[width=\linewidth]{12.5}{lakerbros/lakerbros-}{42}{0}
 	\end{center}
 	\pause
-(Those are the same files, btw. Just reversed the frame order. \{0\}\{42\} becomes \{42\}\{0\} It's fun.)
+(Those are the same files, btw. Just reversed the frame order. \{0\}\{42\} becomes \{42\}\{0\}. Try it. It's fun.)
 \end{frame}
 
 \begin{frame}
 	\frametitle{References/Additional Info}
 	
 		\begin{itemize}
-			\item \
+			\item \href{https://www.imagemagick.org/script/index.php}{ImageMagick} 
 			\item \href{http://tug.ctan.org/macros/latex/contrib/animate/animate.pdf}{The `animate' package reference doc}
-			\item
+			\item \href{http://tug.ctan.org/macros/latex/contrib/beamer/doc/beameruserguide.pdf}{The `Beamer' class User Guide}
 		\end{itemize}
 	
 \end{frame}
@@ -267,9 +280,13 @@
 \begin{frame}
 	\frametitle{Thanks to:}
 	\begin{itemize}
-		\item 
+		\item Till Tantau, Joseph Wright, and Verdan Mileti\'{c} (Beamer)
+		\item Alexander Grahn (animate)
+		\item Zander Furnas, Brendan Nyhan, Jonathan Robinson, and John Lovett, for requesting (and waiting patiently for) this document.
+		\item Matt Malesky, for help with the OSX shell file process.
+		\item Erin Cikanek, for being a patient OSX workflow beta-tester.
 	\end{itemize}
-	And, of course, thanks to the massive community at \href{http://stackoverflow.com/}{Stack Overflow}.
+	And, of course, thanks to the massive community at \href{http://stackoverflow.com/}{Stack Overflow}, who explained this already in a different question.
 \end{frame}
 
 \end{document}
