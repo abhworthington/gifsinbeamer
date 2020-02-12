@@ -1,3 +1,12 @@
+# LaTeX junk
+*.nav
+*.aux
+*.out
+*.snm
+*.sync
+*.toc
+*.vrb
+
 #################
 ## Eclipse
 #################
